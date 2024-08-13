@@ -111,3 +111,61 @@ echo $((2 + 2))
 echo $(( 4 * 5))
 echo $((4 / 5)) # yields 0, which is wrong. because bash can only handle integers
 ```
+
+## running multiple commands
+can use one-liners, which are multiple commands contained in one line separated by semi-colons:
+```bash
+echo hello; echo world!
+```
+they can be integrated with aliases, too.
+
+Can also create bash scripts, which are multi-line bash commands, commonly with a `.sh` extension. You can run it like so:
+```bash
+bash run.sh
+```
+You can also use a 'shebang' line, which is a `#!` prefixed to a path of the shell. 
+```bash
+#!/usr/bin/env/ bash run.sh
+```
+If we don't use the shebang line, the default shell will be used to run a shell script
+```bash
+./run.sh
+```
+
+Can use `nano`, or another Linux text editor. In codespaces, we can just type `code` into the terminal to create a new text file: `code myscript.sh`
+
+to make a file an executable, use `chmod +x myscript.sh`
+
+## displaying text with echo
+there is a difference in how bash will operate on no-quotes, single-quotes, and double-quotes
+```bash
+echo the kernel is $(uname -r). # this will work
+echo the (kernel) is $(uname -r). # this will error
+echo 'the (kernel) is $(uname -r).' # this will print *everything* out as a string literal
+echo "the (kernel) is $(uname -r)." # this will perform command substition within the echo
+```
+
+## variables
+never include spaces on either side of assignment character, e.g.: 
+```bash
+a="hello world"
+echo $a
+
+# vs.
+
+b = "hello world" # no good, will error
+echo $b
+```
+
+can make variables read-only/unnable to be reassigned
+`declare -r myname="FreyGeospatial"`
+
+can make a variable all lowercase
+`declare -l lowercase_var="THIS WAS UPPERCASE!"`
+
+conversely...
+`declare -u uppercase_var="THIS WAS LOWERCASE!"`
+
+`declare -p` will tell you what variables in session have been set.
+
+`declare` doesn't need to be used to set variables, but it can make adding requirements ontop of variables easier.
