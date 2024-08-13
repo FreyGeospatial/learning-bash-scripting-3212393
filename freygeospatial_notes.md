@@ -169,3 +169,40 @@ conversely...
 `declare -p` will tell you what variables in session have been set.
 
 `declare` doesn't need to be used to set variables, but it can make adding requirements ontop of variables easier.
+
+## working with numbers
+```bash
+echo $((4+4))
+echo $((2*3))
+echo $(( (3+6) - 5 * (5*2) ))
+
+a=3
+((a+=3)) # must use this, as doing a+=3 yields 33 instead
+echo $a # reviels that a == 6
+
+((a++)) # yields 7
+((a--)) # yields 6
+```
+
+Look at this other scenario, though: please look at and run my executable `./arithmetic.sh`
+
+Remember also that bash does not work with decimals. `echo $((1/3))` will yield 0 instead of 0.333.... For more precise calculations, consider using `bc` or `awk`.
+
+```bash
+# using bc to perform decimal calculations
+declare -i c=1
+declare -i d=3
+
+e=$(echo "scale=3; $c/$d" | bc)
+
+echo $e # note that this result is returned text.
+```
+
+Creating a random integer between 0 and 32,767:
+```bash
+echo $RANDOM
+# random number between 1 and 10
+echo $(( 1 + RANDOM % 10 ))
+# random number between 1 and 20
+echo $(( 1 + RANDOM % 20 ))
+```
