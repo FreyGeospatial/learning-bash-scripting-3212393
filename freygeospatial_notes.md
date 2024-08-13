@@ -252,3 +252,46 @@ ls && echo "listed the directory"
 
 false && echo "success!" # does not return val
 false && echo "success!" # does return val
+```
+
+## evaluate control or  escape characters
+```bash
+echo -e "Name \t\tNumber";echo -e "Scott\t\t123"
+```
+## using printf
+```bash
+echo "the results are: $(( 2 + 2 )) and $(( 3 / 1 ))"
+printf "The results are: %d and %d\n" $(( 2 + 2 )) $(( 3 / 1 ))
+printf "The result is: %d\n" $(( 2 + 2 )) $(( 3 / 1 ))
+```
+
+See printf script for more details.
+
+## arrays
+two types of arrays:
+- indexed arrays
+- asssociative arrays
+
+There is no error by specifying index in array where no val exists
+
+```bash
+snacks=("apple" "orange" "honeydew") # indexed array
+declare -a snacks=("apple" "orange" "honeydew") # same as above
+echo ${snacks[2]}
+snacks[5]="blueberries" # can set at specific index, even if value does not come before it
+snacks+=("mango") # append
+echo ${snacks[@]} # return the entire array on one line but does not show missing items
+for i in {0..7}; do echo "$i: ${snacks[i]}"; done
+for i in {0..15}; do echo "$i: ${snacks[i]}"; done
+```
+
+associative arrays (dictionaries)
+```bash
+declare -A office
+office[city]="San Francisco"
+office["building name"]="HQ West"
+echo ${office["building name"]} is in ${office[city]}
+```
+
+neither indexed nor associative array allows for nesting!
+
