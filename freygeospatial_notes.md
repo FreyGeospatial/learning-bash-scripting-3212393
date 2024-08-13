@@ -295,3 +295,7 @@ echo ${office["building name"]} is in ${office[city]}
 
 neither indexed nor associative array allows for nesting!
 
+## if statements
+check `if.sh` for a look at how to write an if statement.
+
+## loops
