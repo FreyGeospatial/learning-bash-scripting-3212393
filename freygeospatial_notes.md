@@ -206,3 +206,49 @@ echo $(( 1 + RANDOM % 10 ))
 # random number between 1 and 20
 echo $(( 1 + RANDOM % 20 ))
 ```
+
+## comparing values
+```bash
+# testing whether the home directory exists
+[ -d ~ ]
+```
+
+The shell returns a status code after a command completes.
+- 0 means success (true)
+- 1 means failure (false)
+
+It is important to remember that bash will treat 1 as false and 0 as true!! It's counter-intuitive.
+
+To grab the last return status:
+```bash
+echo $?
+```
+Lets check for another directory:
+```bash
+[ -d /bin/bash ]; echo $?; # this will return false (1) since it is a file, not a directory
+[ -d /bin ]; echo $?; # this will return true (0) since it is a directory
+[ -a /bin/bash]; echo $?; # returns true (0) because -a is the file operator and bash is a file
+[ "cat" == "dog" ]; echo $?; # note, we can use single equal sign, but why?
+[ "cat" == "cat" ]; echo $?;
+
+# we can use > or < symbols to compare text, but lt/gt are used for numeric comparison
+[ 4 -lt 5 ]; echo $?
+[ 5 -lt 5 ]; echo $?
+[ 6 -ht 5 ]; echo $?
+[ ! 4 -lt 5 ]; echo $? # negation
+```
+use `help test` to see full list of operators.
+
+double bracket notation
+```bash
+[[ 4 -lt 3]];echo $?
+[[ -d ~ && -a /bin/bash ]]; echo $?; # does home directory exist AND does bash file exist?
+[[ -d ~ && -a /bin/mash ]]; echo $?; # does home directory exist AND does mash file exist?
+[[ -d ~ || -a /bin/mash ]]; echo $?; # does home directory exist OR does mash file exist?
+# only run echo if true:
+[[ -d ~ ]] && echo "~ is a directory"
+# only run echo if command ran successfully
+ls && echo "listed the directory"
+
+false && echo "success!" # does not return val
+false && echo "success!" # does return val
