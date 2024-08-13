@@ -299,3 +299,7 @@ neither indexed nor associative array allows for nesting!
 check `if.sh` for a look at how to write an if statement.
 
 ## loops
+check `while.sh` and `for.sh`.
+
+## functions
+check `functions.sh`.
